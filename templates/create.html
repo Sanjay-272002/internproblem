@@ -1,0 +1,48 @@
+{% extends 'index.html'%}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Content here -->
+        <div class="row gx-2 pt-3">
+        <h3 class="text-center col-md-6 offset-3" style="background-color:#e56237; padding: 15px; border-radius: 15px; width: 58%; color:#fff">
+            LOAN APPLICATION FORM
+        </h3>
+            <div class="col-md-6 offset-3 mt-4" style="border:1px solid #80808029; padding:15px;">
+
+                {% comment %} <form action="" method="post">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <input type="submit" value="Save">
+                </form> {% endcomment %}
+
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="name" class="form-label">{{form.firstname.label}}</label>
+                        {{form.firstname}}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">{{form.lastname.label}}</label>
+                        {{form.lastname}}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="amount" class="form-label">{{form.username.label}}</label>
+                        {{form.username}}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="tenture" class="form-label">{{form.email.label}}</label>
+                        {{form.email}}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="occupation" class="form-label">{{form.state.label}}</label>
+                        {{form.state}}
+                    </div>
+
+                    
+                        {% endfor %}
+                    </div>

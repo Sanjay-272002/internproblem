@@ -1,0 +1,59 @@
+
+
+{% extends 'index.html'%}
+{% load static %}
+
+
+
+{% block content %}
+
+    <section id="contact" class="get-started">
+        <div class="container">
+          <div class="row text-center">
+            <h1 class="display-3 fw-bold text-capitalize">Sign in</h1>
+            <div class="heading-line"></div>
+          </div>
+          
+          
+            <div class="col-12 col-lg-6 bg-white shadow p-3">
+              <div class="form w-100 pb-2">
+                <h4 class="display-3--title mb-5">Login</h4>
+                <form action="{% url 'login' %}" method="POST">
+                  {% csrf_token %}
+
+                  <!-- {{form}} -->
+                  <div class="col-lg-6 col-md mb-3">
+                    <input name="username" type="text" class="shadow form-control form-control-lg" placeholder="User Name">
+                  </div>
+          
+                  <div class="col-lg-6 col-md mb-3">
+                    <input name="password" type="password" class="shadow form-control form-control-lg" placeholder="Password">
+                  </div>
+                  <div class="col-lg-6 col-md mb-3">
+                    <label for="Domain" class="h5 text-muted ">User:</label>
+                    <select name="profession" id="Domain" >
+                      <option value="Doctor" class="shadow form-control form-control-lg">Doctor</option>
+                      <option value="Patient" class="shadow form-control form-control-lg">Patient</option>
+    
+                    </select>
+                  </div>
+                  <div class="text-center d-grid mt-1">
+                    <button type="submit" class="btn btn-primary rounded-pill pt-3 pb-3">
+                  Login
+                      <i class="fas fa-paper-plane"></i>
+                    </button>
+                  </div>
+                  <!-- <div class="text-center">
+                    OR
+                  </div>
+                  <a href="#" class="shadow form-control form-control-lg">Facebook</a>
+                  <a href="#"class="shadow form-control form-control-lg">Google</a> -->
+          
+                </form>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+{% endblock %}
