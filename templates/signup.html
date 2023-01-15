@@ -14,58 +14,18 @@
         <div class="col-12 col-lg-6 bg-white shadow p-3">
           <div class="form w-100 pb-2">
             <h4 class="display-3--title my-0  ">Register</h4>
-            <form method="POST" action="{% url 'register' %}" class="row">
+            <form method="POST" action="{% url 'signup'%}">
               {% csrf_token %}
-              <div class="col-lg-6 col-md mb-3">
-                <input name="firstname" type="text" placeholder="First Name" id="inputFirstName" class="shadow form-control form-control-lg">
-              </div>
-              <div class="col-lg-6 col-md mb-3">
-                <input name="lastname" type="text" placeholder="Last Name" id="inputLastName" class="shadow form-control form-control-lg">
-              </div>
-              
-              <div class="col-lg-12  mb-3">
-                <input name="username" type="text" placeholder="Username" id="Username" class="shadow form-control form-control-lg">
-              </div>
-              <div class="col-lg-12 mb-3">
-                <label for="img" class="h5 text-muted">Profile Picture:</label>
-                <input name="sanjay" type="file" id="img"  placeholder="selectimage" accept="image/*">
-              </div>
-              <div class="col-lg-6 col-md mb-3">
-                <label for="Domain" class="h5 text-muted ">User:</label>
-                <select name="profession" id="Domain" >
-                  <option value="Doctor" class="shadow form-control form-control-lg">Doctor</option>
-                  <option value="Patient" class="shadow form-control form-control-lg">Patient</option>
-
-                </select>
-              </div>
-              <div class="col-lg-12 mb-3">
-                <input name="email" name="email" type="email" class="shadow form-control form-control-lg" placeholder="Email Address">
-              </div>
-              <div class="col-lg-12 mb-3">
-                <input name="password" name="password" type="password" class="shadow form-control form-control-lg" placeholder="Password">
-              </div>
-              <div class="col-lg-12 mb-3">
-                <input name="confirm_password" name="confirm_password" type="password" class="shadow form-control form-control-lg" placeholder="Confirm Password">
-              </div>
-              <div class="col-lg-12 mb-3">
-                <textarea name="Address" placeholder="Address" id="Address" rows="2" class="shadow form-control form-control-lg"></textarea>
-              </div>
-              <div class="col-lg-6 col-md mb-3">
-                <input name="city" type="text" placeholder="City" id="City" class="shadow form-control form-control-lg">
-              </div>
-              <div class="col-lg-6 col-md mb-3">
-                <input name="state" type="text" placeholder="State" id="State" class="shadow form-control form-control-lg">
-              </div>
-              <div class="col-lg-12  mb-3">
-                <input name="pincode" name="pincode" type="text" placeholder="pincode" class="shadow form-control form-control-lg" inputmode="numeric" maxlength="6">
-              </div>
-              <div class="text-center d-grid mt-1">
-                <button type="submit" class="btn btn-primary rounded-pill pt-3 pb-3">
-               Register
-                  <i class="fas fa-paper-plane"></i>
-                </button>
-              </div>
-            </form>
+              <label for="selct">Who are you?</label>
+              <select name="domain" id="selct">
+                  <!-- <option value="Admin">Admin</option> -->
+                  <option value="Doctor">Doctor</option>
+                  <option value="Patient">Patient</option>
+              </select>
+              <button type="submit" style="background-color: black;
+              color: aliceblue;">Submit</button>
+              <br><br><br><br><br><br>
+          </form>
           </div>
         </div>
       </div>

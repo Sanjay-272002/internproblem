@@ -2,14 +2,13 @@
 {% load static %}
 
 {% block content %}
-
 <div class="container-fluid">
   
       <div class="row gx-2 pt-3">
 
           <div class="col-md-12 mt-4" style="border:1px solid #80808029; padding:15px;">
               
-              <h4 class="text-center mb-3">LOAN RECORD</h4>
+              <h4 class="text-center mb-3">doctor</h4>
              
               <table class="table">
                   <thead>
@@ -17,30 +16,22 @@
                           <th scope="col">Firstname</th>
                           <th scope="col">Lastname</th>
                           <th scope="col">Username</th>
-                          <th scope="col">Category</th>
                           <th scope="col">Email</th>
-                          <th scope="col">State</th>
-
                       </tr>
                   </thead>
                   <tbody>
 
-                      {% for data in  user_data %}
+                      {% for data in  doctor %}
                       <tr>
-                          <!-- <td>{{data.id}}</td> -->
-                          <td>{{data.firstname}}</td>
-                          <td>{{data.lastname}}</td>
-                          <td>{{data.username}}</td>
-                          <td>{{data.email}}</td>
-                          <td>{{data.state}}</td>
+                        <td>{{data.user.first_name}}</td>
+                        <td>{{data.user.last_name}}</td>
+                        <td>{{data.user.username}}</td>
+                        <td>{{data.user.email}}</td>
+                        
             
                       </tr>
                       {% endfor %}
-                      {% if not  user_data %}
-                          <tr>
-                              <td colspan="10" class="text-center">No Loan request is available</td>
-                          </tr>
-                      {% endif %}
+                    
                   </tbody>
               </table>
           </div>

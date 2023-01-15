@@ -1,20 +1,24 @@
 <nav class="navbar navbar-expand-lg navbar-dark menu shadow fixed-top">
+  {% include 'messages.html' %}
     <div class="container">
-      <!-- <a class="navbar-brand" href="">
-        <h1>Home</h1>
-      </a> -->
+  
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav">
+        
+    
+          <ul class="navbar-nav">
+         
+          {% if user.is_authenticated %}
+         
+          <a class="btn btn-accent " href="/logout">logout</a>
+          {% else %}
           <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'home'%}">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'doctor'%}">Doctor</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'patient' %}">Patient</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Signup</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Signin</a></li>
-          </li>
-        </ul>
+          <a class="btn btn-accent mr-3" href="/login">Signin</a>
+          <a class="btn btn-accent " href="/signup">SignUp</a>
+          {% endif %} 
+        
     
       </div>
     </div>

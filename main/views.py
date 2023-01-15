@@ -1,102 +1,103 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate,login, logout
 from django.contrib.auth.models import User
+from django.contrib.auth.models import Group
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required,user_passes_test
 from django.contrib.auth.decorators import login_required
-from .models import Contact
-from .forms import GeeksForm 
+from .models import *
+from django.http import HttpResponseRedirect
+from . import forms,models
 
 
 def home(request):
     return render(request,"home.html")
-
-
-def patient(request):
-     return render(request,"patient.html")
-    
-def doctor(request):
-    return render(request,"doctor.html")
-
-def register(request):
-     if request.method == 'POST':
-        firstname=request.POST.get('firstname')
-        lastname=request.POST.get('lastname')
-        username=request.POST.get('username')
-        selectimage=request.POST.get('sanjay')
-        domain=request.POST.get('profession')
-        email=request.POST.get('email')
-        password=request.POST.get('password')
-        confirm_password=request.POST.get('confirm_password')
-        address=request.POST.get('address')
-        city=request.POST.get('city')
-        state=request.POST.get('state')
-        pincode=request.POST.get('pincode')
-
-        if password == confirm_password:
-            if Contact.objects.filter(username=username).exists():
-
-                print("not valid")
-                return redirect('doctor')
-            else:
-                if Contact.objects.filter(email=email).exists():
-                    print("email")
-                    return redirect('register')
-                else:
-                    register = Contact.objects.create(firstname=firstname, lastname=lastname,username=username,profileimg=selectimage,category=domain, email=email, password=password,address=address,city=city,state=state,pincode=pincode)
-                    register.save()
-                    
-                    print("user saved")
-                    return  redirect('home')
-                    
+def signup_view(request):
+    if request.method=='POST':
+        Domain=request.POST.get('domain')
+        use = domain.objects.create(domain=Domain);
+        use.save()
+        print(Domain)        
+        if(Domain=='Doctor'):
+             print("Doctor");
+             return HttpResponseRedirect('doctorsignup')
         else:
-            
+            print("Patient");
+            return HttpResponseRedirect('patientsignup')
+    return render(request,"signup.html")
+
+def doctor_signup_view(request):
+    userForm=forms.DoctorUserForm()
+    doctorForm=forms.DoctorForm()
+    mydict={'userForm':userForm,'doctorForm':doctorForm}
+    if request.method=='POST':
+        userForm=forms.DoctorUserForm(request.POST)
+        doctorForm=forms.DoctorForm(request.POST,request.FILES)
+        if userForm.is_valid() and doctorForm.is_valid():
+            user=userForm.save()
+            user.set_password(user.password)
+            user.save()
+            doctor=doctorForm.save(commit=False)
+            doctor.user=user
+            doctor=doctor.save()
+            my_doctor_group = Group.objects.get_or_create(name='DOCTOR')
+            my_doctor_group[0].user_set.add(user)
+            return HttpResponseRedirect('login')
+        else:
+            messages.warning(request,'Password do not match')
+            return redirect('doctorsignup')
+    return render(request,'doctorsignup.html',context=mydict)
+
+def patient_signup_view(request):
+    userForm=forms.PatientUserForm()
+    patientForm=forms.PatientForm()
+    mydict={'userForm':userForm,'patientForm':patientForm}
+    if request.method=='POST':
+        userForm=forms.PatientUserForm(request.POST)
+        patientForm=forms.PatientForm(request.POST,request.FILES)
+        if userForm.is_valid() and patientForm.is_valid():
+            user=userForm.save()
+            user.set_password(user.password)
+            user.save()
+            patient=patientForm.save(commit=False)
+            patient.user=user
+            patient.assignedDoctorId=request.POST.get('assignedDoctorId')
+            patient=patient.save()
+            my_patient_group = Group.objects.get_or_create(name='PATIENT')
+            my_patient_group[0].user_set.add(user)
+            return HttpResponseRedirect('login')
+        else:
+            messages.warning(request,'Password do not match')
+            return redirect('patientsignup')
+    return render(request,'patientsignup.html',context=mydict)
+def is_doctor(user):
+    return user.groups.filter(name='DOCTOR').exists()
+def is_patient(user):
+    return user.groups.filter(name='PATIENT').exists()
+def afterlogin_view(request):
+    if is_doctor(request.user):
+            return redirect('doctor')
+    elif is_patient(request.user):
             return redirect('patient')
 
-     return render(request,"signup.html")
-
-def login_user(request):
-    if request.method == 'POST':
-        if Contact.objects.filter(username=request.POST['username'], password=request.POST['password']).exists():
-            register = Contact.objects.get(username=request.POST['username'], password=request.POST['password'])
-            domain=request.POST.get('profession')
-            if (domain=="Doctor"):
-                return render(request, 'doctor.html', {'register': register})
-            else:
-                return render(request, 'patient.html', {'register': register})
-
-        else:
-            
-            return render(request, 'login.html')
-    # if request.method == 'POST':
-    #     username = request.POST['username']
-    #     password = request.POST['password']
-
-    #     register = authentication(request, username=username)
-
-    #     if register is not None:
-    #         login(request, register)
-           
-    #         return redirect('doctor') 
-    #     else:
-           
-    #         return redirect('home') 
+@login_required(login_url='login')
+@user_passes_test(is_patient)
+def patient(request):
+    patient=Patient.objects.all()
+    context={
+    'patient':patient
+    }
+    return render(request,'patient.html',context)
     
-    return render(request,"signin.html")
-    
-# def create(request):
-    form = GeeksForm()
-    if request.method == 'POST':
-        form = GeeksForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('doctor')
+@user_passes_test(is_doctor) 
+def doctor(request):
+    doctor=models.Doctor.objects.all()
+    mydict={
+    'doctor':doctor
+    }
+    return render(request,'doctor.html',mydict)
 
-    context = { 'form':form }
-    return render(request, 'create.html', context)
- 
- 
-def read(request):
-    user_data = Contact.objects.all()
-   
-    context = { 'user_data': user_data, }
-    return render(request, 'doctor.html', context)
+
+
+
+

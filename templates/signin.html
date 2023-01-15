@@ -1,9 +1,8 @@
 
-
 {% extends 'index.html'%}
 {% load static %}
 
-
+{% load widget_tweaks %}
 
 {% block content %}
 
@@ -18,37 +17,38 @@
             <div class="col-12 col-lg-6 bg-white shadow p-3">
               <div class="form w-100 pb-2">
                 <h4 class="display-3--title mb-5">Login</h4>
-                <form action="{% url 'login' %}" method="POST">
+                <form method="post">
                   {% csrf_token %}
-
-                  <!-- {{form}} -->
-                  <div class="col-lg-6 col-md mb-3">
-                    <input name="username" type="text" class="shadow form-control form-control-lg" placeholder="User Name">
+                  <div class="container register-form">
+                    <div class="form">
+                      <div class="note">
+                        <p> Login Page</p>
+                      </div>
+              
+                      <div class="form-content">
+                        <div class="row">
+                          <div class="col-md-6">
+              
+                            <div class="form-group">
+                              {% render_field form.username class="form-control" placeholder="Username" %}
+                            </div>
+              
+                          </div>
+                          <div class="col-md-6">
+              
+                            <div class="form-group">
+                              {% render_field form.password class="form-control" placeholder="Password" %}
+                            </div>
+              
+                          </div>
+                        </div>
+                        <button type="submit" class="btnSubmit" style="background-color: black;
+                        color: aliceblue;">Login</button>
+                        <div class="text-center">Do not have account? <a href="signup">Signup here</a></div>
+                      </div>
+                    </div>
                   </div>
-          
-                  <div class="col-lg-6 col-md mb-3">
-                    <input name="password" type="password" class="shadow form-control form-control-lg" placeholder="Password">
-                  </div>
-                  <div class="col-lg-6 col-md mb-3">
-                    <label for="Domain" class="h5 text-muted ">User:</label>
-                    <select name="profession" id="Domain" >
-                      <option value="Doctor" class="shadow form-control form-control-lg">Doctor</option>
-                      <option value="Patient" class="shadow form-control form-control-lg">Patient</option>
-    
-                    </select>
-                  </div>
-                  <div class="text-center d-grid mt-1">
-                    <button type="submit" class="btn btn-primary rounded-pill pt-3 pb-3">
-                  Login
-                      <i class="fas fa-paper-plane"></i>
-                    </button>
-                  </div>
-                  <!-- <div class="text-center">
-                    OR
-                  </div>
-                  <a href="#" class="shadow form-control form-control-lg">Facebook</a>
-                  <a href="#"class="shadow form-control form-control-lg">Google</a> -->
-          
+              
                 </form>
               </div>
               </div>

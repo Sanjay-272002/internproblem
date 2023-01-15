@@ -1,0 +1,67 @@
+{% extends 'index.html'%}
+{% load static %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+  <section id="contact" class="get-started">
+    <div class="container">
+      <div class="row text-center">
+        <h1 class="display-3 fw-bold text-capitalize">Sign up</h1>
+        <div class="heading-line"></div>
+      </div>
+     
+        <div class="col-12 col-lg-6 bg-white shadow p-3">
+          <div class="form w-100 pb-2">
+            <h4 class="display-3--title my-0  ">Register</h4>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="container register-form">
+                  <div class="form">
+            
+                    <div class="form-content">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            {% render_field userForm.first_name class="form-control" placeholder="First Name" %}
+                          </div>
+                          <div class="form-group">
+                            {% render_field userForm.username class="form-control" placeholder="Username" %}
+                          </div>
+                          <div class="form-group">
+                            {% render_field userForm.email class="form-control" placeholder="Email" %}
+                          </div>
+                          <div class="form-group">
+                            {% render_field patientForm.address class="form-control" placeholder="Address" %}
+                          </div>
+                         
+                          <div class="form-group">
+                            {% render_field patientForm.profile_pic required="required" class="form-control" placeholder="Profile Picture" %}
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            {% render_field userForm.last_name class="form-control" placeholder="Last Name" %}
+                          </div>
+                          <div class="form-group">
+                            {% render_field userForm.password class="form-control" placeholder="Password" %}
+                          </div>
+                          <div class="form-group">
+                            {% render_field userForm.confirm_password class="form-control" placeholder="confirmPassword" %}
+                          </div>
+
+                      </div>
+                      <button type="submit" class="btnSubmit" style="background-color: black;
+                      color: aliceblue;">Register</button>
+                      <div class="text-center">Already have an account? <a href="login">Login here</a></div>
+                    </div>
+                  </div>
+                </div>
+            
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
