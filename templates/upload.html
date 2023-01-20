@@ -1,0 +1,45 @@
+{% extends 'index.html'%}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+<br><br>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="container register-form">
+      <div class="form">
+       <h1>Upload Blog</h1>
+
+        <div class="form-content">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                {% render_field uploadForm.Title class="form-control" placeholder="Title" %}
+              </div>
+              <div class="form-group">
+                {% render_field uploadForm.image class="form-control" placeholder="Image" %}
+              </div>
+              <div class="form-group">
+                {% render_field uploadForm.catg class="form-control" placeholder="Category" %}
+              </div>
+
+              <div class="form-group" style="height: 20%;">
+                {% render_field uploadForm.summary  class="form-control" placeholder="summary" %}
+              </div>
+              <div class="form-group">
+                
+                {% render_field uploadForm.content class="form-control" placeholder="content" %}
+              </div>
+              <div class="form-group">
+                <label>Draft</label>
+                {% render_field uploadForm.Draft class="form-control" placeholder="Draft" %}
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btnSubmit" style="background-color: black;
+          color: aliceblue;">Upload Blog</button>
+        </div>
+      </div>
+    </div>
+
+  </form>
+{% endblock %}

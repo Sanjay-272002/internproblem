@@ -1,0 +1,29 @@
+{% extends 'index.html'%}
+{% load static %}
+{% block content %}
+<br><br><br><br>
+<section class="container mt-3" style="border: 4px solid black;
+width: 45%; background-color: brown;
+color: aliceblue;">
+    <h3 class="text-center">Blogs</h3>
+      {% for team in vi %}
+      <div class="card border-0 text-center  ml-3 mr-3" style="background-color: yellow;
+      color: red;">
+        <h5 class="card-title"><span>TITLE:</span>{{ team.Title }}</h5>
+        <div style="display: flex;
+        align-items: center;
+        justify-content: center;">
+        <img src="{% static team.image.url %}" class="card-img-top" style=" max-width:30%;
+        "></div>
+        <div class="custom-card-body ">
+          <h6 style="color:black">CATEGORY:</h6>
+            <p class="card-text">{{ team.catg }}</p>
+            <h6 style="color:black">SUMMARY:</h6>
+          <p class="card-text">{{ team.summary }}</p>
+          <h6 style="color:black">CONTENT:</h6>
+          <p class="card-text">{{ team.content }}</p>
+        </div>
+      </div><br>
+      {% endfor %}
+  </section>
+{% endblock %}

@@ -51,3 +51,18 @@ class Patient(models.Model):
         return self.user.id
     def __str__(self):
         return self.user.first_name
+
+categories=[('Mental Health ','Mental Health '),
+('Heart Disease','Heart Disease'),
+('Covid','Covid'),
+('Immunization','Immunization')
+]
+choi=[('Yes','Yes'),('No','No')]
+class formsss(models.Model):
+    Title=models.CharField(max_length=20)
+    image= models.ImageField(upload_to='profile_pic/blogimage/',null=True,blank=True)
+    catg= models.CharField(max_length=50,choices=categories,default='Covid')
+    summary=models.TextField(max_length=150)
+    content=models.TextField(max_length=300)
+    Draft=models.CharField(max_length=20,choices=choi,default='No')
+

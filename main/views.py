@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.contrib.auth.decorators import login_required
 from .models import *
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,HttpResponse
 from . import forms,models
 
 
@@ -99,5 +99,28 @@ def doctor(request):
 
 
 
+def upload(request):
+    uploadForm=forms.uploadForm()
+    myd={'uploadForm':uploadForm}
+    if request.method=='POST':
+        uploadForm=forms.uploadForm(request.POST,request.FILES)
+        if uploadForm.is_valid():
+            user=uploadForm.save()
+            user.save()
+            return HttpResponseRedirect('upload')
+    return render(request,"upload.html",context=myd)
 
+def viewp(request):
+    vie=formsss.objects.all()
+    print(vie)
+    mydict={
+    'vie':vie
+    }
+    return render(request,"view.html", mydict)
 
+def viewww(request):
+    vi=formsss.objects.all().filter(Draft='No')
+    mydict={
+    'vi':vi
+    }
+    return render(request,'viewww.html', mydict)

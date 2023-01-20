@@ -45,3 +45,8 @@ class PatientForm(forms.ModelForm):
     class Meta:
         model=models.Patient
         fields=['address','status','profile_pic']
+
+class uploadForm(forms.ModelForm):
+    class Meta:
+        model=models.formsss
+        fields=['Title','image','catg','summary','content','Draft']

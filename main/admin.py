@@ -5,4 +5,5 @@ from .models import *
 admin.site.register(domain)
 admin.site.register(Doctor)
 admin.site.register(Patient)
+admin.site.register(formsss)
 # Register your models here.

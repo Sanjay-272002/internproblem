@@ -12,5 +12,7 @@ urlpatterns =[
    path('patient', views.patient,name='patient'),
    path('afterlogin', views.afterlogin_view,name='afterlogin'),
    path('logout', LogoutView.as_view(template_name='home.html'),name='logout'),
-   
+   path('upload',views.upload,name='upload'),
+   path('viewp',views.viewp,name='viewp'),
+   path('viewww',views.viewww,name='viewww'),
 ]
