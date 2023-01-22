@@ -15,4 +15,10 @@ urlpatterns =[
    path('upload',views.upload,name='upload'),
    path('viewp',views.viewp,name='viewp'),
    path('viewww',views.viewww,name='viewww'),
+   path('dbook',views.dbook,name='dbook'),
+   path('book/<int:pk>',views.book,name='book'),
+   path('confirm' , views.confirm , name='confirm'),
+   path('bookview' , views.bookview , name='bookview'),
+   path('bookvieww' , views.bookvieww , name='bookvieww'),
+   
 ]

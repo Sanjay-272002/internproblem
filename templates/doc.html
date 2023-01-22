@@ -1,0 +1,38 @@
+{% extends 'index.html'%}
+{% load static %}
+
+{% block content %}
+
+
+<div class="container-fluid">
+  
+      <div class="row gx-2 pt-3">
+
+          <div class="col-md-12 mt-4" style="border:1px solid #80808029; padding:15px;">
+              
+              <h4 class="text-center mb-3">Doctor's list</h4>
+              <table class="table">
+                  <thead>
+                      <tr>
+                          <th scope="col">profilepic</th>
+                          <th scope="col">Username</th>
+                          <th scope="col">Book</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+
+                      {% for data in  doctor %}
+                      <tr>
+                        <td><img src="{% static data.profile_pic.url %}" class="card-img-top" style=" max-width:5%;"></td>
+                        <td>{{data.user.username}}</td>
+                      <td> <a href="{% url 'book' data.id  %}"><button> Book appointment</button></a></td>
+            
+                      </tr>
+                      {% endfor %}
+                    
+                  </tbody>
+              </table>
+          </div>
+      </div>
+  </div>
+{% endblock %}

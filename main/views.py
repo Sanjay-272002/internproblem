@@ -8,7 +8,20 @@ from django.contrib.auth.decorators import login_required
 from .models import *
 from django.http import HttpResponseRedirect,HttpResponse
 from . import forms,models
+import datetime
+from datetime import timedelta
+import pytz
+from googleapiclient import discovery
+from googleapiclient.discovery import build
+import pickle
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.oauth2 import service_account
+from decouple import config
+from google.oauth2 import service_account
+import googleapiclient.discovery
+import datetime
 
+import sys
 
 def home(request):
     return render(request,"home.html")
@@ -84,16 +97,20 @@ def afterlogin_view(request):
 @user_passes_test(is_patient)
 def patient(request):
     patient=Patient.objects.all()
+    patientt=Patient.objects.get(user_id=request.user.id)
     context={
-    'patient':patient
+    'patient':patient,
+    'patientt':patientt
     }
     return render(request,'patient.html',context)
-    
+@login_required(login_url='login')   
 @user_passes_test(is_doctor) 
 def doctor(request):
     doctor=models.Doctor.objects.all()
+    doctort=Doctor.objects.get(user_id=request.user.id)
     mydict={
-    'doctor':doctor
+    'doctor':doctor,
+    'doctort':doctort
     }
     return render(request,'doctor.html',mydict)
 
@@ -124,3 +141,67 @@ def viewww(request):
     'vi':vi
     }
     return render(request,'viewww.html', mydict)
+def dbook(request):
+    doctor=models.Doctor.objects.all()
+    mydict={
+    'doctor':doctor
+    }
+    return render(request,'doc.html',mydict)
+
+
+
+start_time =0
+end_time=0
+  
+scopes = ['https://www.googleapis.com/auth/calendar']
+
+credentials = pickle.load(open('E:\\intern\\hos\\token.pkl', 'rb'))
+def book(request,pk):
+    form = Doctor.objects.get(id=pk)
+    num=pk
+    if request.method == 'POST':
+        form = Doctor.objects.get(id=pk)
+        req = request.POST['req']
+        start = request.POST['start']
+        time = request.POST['time']
+        email = request.POST['email']
+        starts = start +' '+ time +':' '00'
+    
+        start_time = datetime.datetime.strptime(starts,"%Y-%m-%d %H:%M:%S")
+        end_time  = start_time + timedelta(minutes=45)
+        context = { 'req':req,'start':start,'time':time,'start_time':start_time, 'end_time':end_time,'email':email,'form':form}
+        contacttuber = Book(patientId=request.user.id,doctorId=num,patientName=request.user.username,doctorName=form.user.username,require=req,start_time=start_time,end_time=end_time) 
+        contacttuber.save()
+        return  render(request, 'confirm.html',context)
+        
+
+    
+    return render(request,'book.html',{'form':form})
+
+def confirm(request):
+    if request.method == 'POST':
+        req = request.POST['required']
+        start = request.POST['starts']
+        time = request.POST['time']
+        email = request.POST['email']
+        start = start +' '+ time +':' '00' 
+        start_time = datetime.datetime.strptime(start,"%Y-%m-%d %H:%M:%S")
+        end_time  = start_time + timedelta(minutes=45)
+        timezone = 'Asia/Kolkata'
+        
+        return HttpResponseRedirect("patient")
+    
+    return render(request,'confirm.html')
+
+def bookview(request):
+    view=Book.objects.get(patientId=request.user.id)
+    mydict={
+    'view':view
+    }
+    return render(request,'bookview.html',mydict)
+def bookvieww(request):
+    view=Book.objects.all()
+    mydict={
+    'view':view
+    }
+    return render(request,'bookvieww.html',mydict)

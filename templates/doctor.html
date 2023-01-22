@@ -9,7 +9,7 @@
       <div class="row gx-2 pt-3">
 
           <div class="col-md-12 mt-4" style="border:1px solid #80808029; padding:15px;">
-              
+            <p style="text-align:center;font-weight:bold;font-size:larger;">Welcome {{doctort.user.username}}</p>    
               <h4 class="text-center mb-3">doctor</h4>
               <div style="display: flex; align-items: center;justify-content: center;">
                 <a href="/upload"><button>Upload post</button></a>
@@ -39,6 +39,7 @@
                     
                   </tbody>
               </table>
+              <a href="{% url 'bookvieww'  %}"><button>view appointments</button></a>
           </div>
       </div>
   </div>

@@ -50,3 +50,8 @@ class uploadForm(forms.ModelForm):
     class Meta:
         model=models.formsss
         fields=['Title','image','catg','summary','content','Draft']
+
+class BookingForm(forms.Form):
+    eventTitle = forms.CharField(label="event", max_length=255, required=True)
+    startDateTime = forms.DateTimeField(label="startDateTime", input_formats=['%Y/%m/%d %H:%M'], required=True)
+    endDateTime = forms.DateTimeField(label="endDateTime", input_formats=['%Y/%m/%d %H:%M'], required=True)

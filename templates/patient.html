@@ -8,10 +8,11 @@
   <div class="row gx-2 pt-3">
 
       <div class="col-md-12 mt-4" style="border:1px solid #80808029; padding:15px;">
-          
+        <p style="text-align:center;font-weight:bold;font-size:larger;">Welcome {{patientt.user.username}}</p>
           <h4 class="text-center mb-3">Patient</h4>
           <div style="display: flex; align-items: center;justify-content: center;">
             <a href="/viewww"><button>view post</button></a>
+            <a href="/dbook"><button>view doctor</button></a>
         </div>
           <table class="table">
             <thead>
@@ -33,10 +34,12 @@
                     
       
                 </tr>
+               
                 {% endfor %}
               
             </tbody>
         </table>
+        <a href="{% url 'bookview'  %}"><button>view appointments</button></a>
       </div>
   </div>
 </div>

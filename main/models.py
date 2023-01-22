@@ -66,3 +66,11 @@ class formsss(models.Model):
     content=models.TextField(max_length=300)
     Draft=models.CharField(max_length=20,choices=choi,default='No')
 
+class Book(models.Model):
+    patientId=models.PositiveIntegerField(null=True)
+    doctorId=models.PositiveIntegerField(null=True)
+    patientName=models.CharField(max_length=40,null=True)
+    doctorName=models.CharField(max_length=40,null=True)
+    require = models.CharField(max_length=200,null=True)
+    start_time = models.DateField()
+    end_time = models.TimeField()

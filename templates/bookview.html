@@ -1,0 +1,44 @@
+{% extends 'index.html'%}
+{% load static %}
+
+{% block content %}
+
+
+<div class="container-fluid">
+  
+      <div class="row gx-2 pt-3">
+
+          <div class="col-md-12 mt-4" style="border:1px solid #80808029; padding:15px;">
+           
+              <h4 class="text-center mb-3">Appointments</h4>
+            
+              <table class="table">
+                  <thead>
+                      <tr>
+                          <th scope="col">DoctorName</th>
+                          <th scope="col">PatientName</th>
+                          <th scope="col">Speciality</th>
+                          <th scope="col">Start</th>
+                          <th scope="col">End</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+
+                      
+                      <tr>
+                        <td>{{view.doctorName}}</td>
+                        <td>{{view.patientName}}</td>
+                        <td>{{view.require}}</td>
+                        <td>{{view.start_time}}</td>
+                        <td>{{view.end_time}}</td>
+                        
+            
+                      </tr>
+                     
+                    
+                  </tbody>
+              </table>
+          </div>
+      </div>
+  </div>
+{% endblock %}
